@@ -47,8 +47,6 @@ async def startup():
         return
     
 
-    
-
 # Authorization endpoint
 @app.get("/authorize")
 async def authorize():
@@ -60,7 +58,7 @@ async def authorize():
         f"&scope={SCOPE}"
         f"&state={STATE}"  # The state should be a unique token generated per request
     )
-    return {"auth_url": auth_url}
+    return auth_url
 
 # Callback endpoint for receiving the authorization code
 @app.get("/callback")
@@ -85,7 +83,7 @@ async def callback(code: str, state: str):
         print(tokens)
         os.environ["LORAL_ACCESS_TOKEN"] = tokens['access_token']
         os.environ["LORAL_REFRESH_TOKEN"] = tokens.get('refresh_token', "")
-        return "Tokens received!"
+        return "Tokens created!"
 
 # Refresh token endpoint
 @app.post("/refresh_token")
