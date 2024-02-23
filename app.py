@@ -80,7 +80,6 @@ async def callback(code: str, state: str):
     async with httpx.AsyncClient() as client:
         response = await client.post(token_url, headers=headers, data=data)
         tokens = response.json()
-        print(tokens)
         os.environ["LORAL_ACCESS_TOKEN"] = tokens['access_token']
         os.environ["LORAL_REFRESH_TOKEN"] = tokens.get('refresh_token', "")
         return "Tokens created!"
