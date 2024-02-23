@@ -117,7 +117,6 @@ async def grocery_search(search_term: str):
 async def grocery_auth():
     api_url = "https://api.loral.dev/kroger/auth"
     async with httpx.AsyncClient() as client:
-        print(os.getenv('LORAL_ACCESS_TOKEN'))
         response = await client.get(api_url, params={"redirect_uri": "http://localhost:8000/grocery_auth"}, headers={"Authorization": f"Bearer {os.getenv('LORAL_ACCESS_TOKEN')}"})
         if response.status_code != 200:
             raise HTTPException(status_code=response.status_code, detail="Loral unable to execute request\n" + response.text)
